@@ -12,16 +12,16 @@ namespace API.XF.VKNGNotes.Controllers
     public class NotesController : ApiController
     {
         // GET: api/Notes
-        public Notes[] Get()
+        public Note[] Get()
         {
-            Notes[] notes;
+            Note[] notes;
             using (HttpClient client = new HttpClient())
             {
                 client.BaseAddress = new
                     Uri("https://vkngnotes.azurewebsites.net");
 
                 var json = client.GetStringAsync("/").Result;
-                 notes = JsonConvert.DeserializeObject<Notes[]>(json);
+                 notes = JsonConvert.DeserializeObject<Note[]>(json);
             }
 
             return notes;
