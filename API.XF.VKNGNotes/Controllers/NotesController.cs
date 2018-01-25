@@ -1,4 +1,5 @@
-﻿using API.XF.VKNGNotes.Models;
+﻿using API.XF.VKNGNotes.Context;
+using API.XF.VKNGNotes.Models;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -12,30 +13,42 @@ namespace API.XF.VKNGNotes.Controllers
     public class NotesController : ApiController
     {
         // GET: api/Notes
-        public Note[] Get()
+        public List<Note> Get()
         {
-            Note[] notes;
-            using (HttpClient client = new HttpClient())
+            List<Note> notes;
+            using (var context = new DBContext())
             {
-                client.BaseAddress = new
-                    Uri("https://vkngnotes.azurewebsites.net");
-
-                var json = client.GetStringAsync("/").Result;
-                 notes = JsonConvert.DeserializeObject<Note[]>(json);
+                var selectNote = context.Set<Note>();
+                notes = selectNote.ToList();
             }
 
             return notes;
         }
 
         // GET: api/Notes/5
-        public string Get(int id)
+        public Note Get(Guid id)
         {
-            return "value";
+            Note note;
+            using (var context = new DBContext())
+            {
+                var selectNote = context.Set<Note>();
+                note = selectNote.Where(x=>x.Id == id).FirstOrDefault();
+            }
+
+            return note;
         }
 
         // POST: api/Notes
-        public void Post([FromBody]string value)
+        public void Post(Note note)
         {
+            
+            using (var context = new DBContext())
+            {
+                var addNote = context.Set<Note>();
+                addNote.Add(note);
+
+                context.SaveChanges();
+            }
         }
 
         // PUT: api/Notes/5
