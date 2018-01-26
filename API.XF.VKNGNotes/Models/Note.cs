@@ -7,7 +7,7 @@ namespace API.XF.VKNGNotes.Models
 {
     public class Note
     {
-        public Guid Id { get; set; }
+        public int Id { get; set; }
         public string Titulo { get; set; }
         public string Detalhes { get; set; }
         public double Latitude { get; set; }

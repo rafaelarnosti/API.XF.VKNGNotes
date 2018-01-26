@@ -26,7 +26,7 @@ namespace API.XF.VKNGNotes.Controllers
         }
 
         // GET: api/Notes/5
-        public Note Get(Guid id)
+        public Note Get(int id)
         {
             Note note;
             using (var context = new DBContext())
