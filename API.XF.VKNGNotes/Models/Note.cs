@@ -12,6 +12,8 @@ namespace API.XF.VKNGNotes.Models
         public string Detalhes { get; set; }
         public Single Latitude { get; set; }
         public Single Longitude { get; set; }
+        public string Senha { get; set; }
+        public int UserId { get; set; }
 
     }
 }
